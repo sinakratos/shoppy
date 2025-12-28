@@ -1,6 +1,7 @@
 'use server';
 
 import { API_URL } from '@/app/constants/apt';
+import { getErrorMessage } from '@/app/util/errors';
 import { redirect } from 'next/navigation';
 
 export default async function createUser(_prevState: any, formData: FormData) {
@@ -10,8 +11,7 @@ export default async function createUser(_prevState: any, formData: FormData) {
   });
   const parsedRes = await res.json();
   if (!res.ok) {
-    console.log(parsedRes);
-    return { error: '' };
+    return { error: getErrorMessage(parsedRes) };
   }
   redirect('/');
 }
